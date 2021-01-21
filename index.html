@@ -152,6 +152,93 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Java方法重写" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/21/Java%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99/">Java -- 重写父类方法</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/21/Java%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99/" class="archive-article-date">
+  	<time datetime="2021-01-21T08:50:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="1、为什么需要重写？"><a href="#1、为什么需要重写？" class="headerlink" title="1、为什么需要重写？"></a>1、为什么需要重写？</h2><pre><code>大部分时候，子类总是以父类为基础，额外增加新的成员和方法，但是当父类的某些方法与实际子类需要的方法有冲突或子类不需要时，需要重写父类的方法。
+
+例如，鸵鸟属于鸟类，大部分鸟类会飞，而鸵鸟不会飞，此时需要重写鸵鸟&quot;飞&quot;这个方法.</code></pre>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 鸵鸟类 --&gt; 继承鸟类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ostrich</span> <span class="keyword">extends</span> <span class="title">Bird</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸵鸟类可以无法在天上飞..&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 鸟类，即鸵鸟的父类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bird</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸟类可以在天上飞..&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="2、如何重写父类方法？"><a href="#2、如何重写父类方法？" class="headerlink" title="2、如何重写父类方法？"></a>2、如何重写父类方法？</h2><pre><code>static修饰的方法的调用只和左边的类型有关，静态方法不能进行重写，如下面代码...</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 鸵鸟类 --&gt; 继承鸟类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ostrich</span> <span class="keyword">extends</span> <span class="title">Bird</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸵鸟鸟类不可以在天上飞..&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 鸟类 --&gt; 鸵鸟类的父类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bird</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸟类可以在天上飞..&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 应用程序 --&gt; main</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// static修饰的方法的调用只和左边的类型有关:</span></span><br><span class="line">        <span class="comment">// Ostrich(调用Ostrich的), Bird(调用Bird的)</span></span><br><span class="line">        Ostrich ostrich = <span class="keyword">new</span> Ostrich();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 父类的引用bird指向子类</span></span><br><span class="line">        Bird bird = <span class="keyword">new</span> Ostrich();</span><br><span class="line"></span><br><span class="line">        ostrich.test();</span><br><span class="line">        bird.test();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码执行后如下：</p>
+<pre><code>鸵鸟鸟类不可以在天上飞..
+鸟类可以在天上飞..</code></pre>
+<h3 id="非静态方法才能进行重写-–-代码如下…"><a href="#非静态方法才能进行重写-–-代码如下…" class="headerlink" title="非静态方法才能进行重写 – 代码如下…"></a><em>非静态方法才能进行重写 – 代码如下…</em></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 鸵鸟类 --&gt; 继承鸟类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ostrich</span> <span class="keyword">extends</span> <span class="title">Bird</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span>       <span class="comment">// 注解：有功能的注释</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸵鸟鸟类不可以在天上飞..&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 鸟类 --&gt; 鸵鸟类的父类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bird</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;鸟类可以在天上飞..&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 应用程序 --&gt; main</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Ostrich ostrich = <span class="keyword">new</span> Ostrich();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 父类的引用bird指向子类</span></span><br><span class="line">        Bird bird = <span class="keyword">new</span> Ostrich();</span><br><span class="line"></span><br><span class="line">        ostrich.test();</span><br><span class="line">        bird.test();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码运行如下：</p>
+<pre><code>鸵鸟鸟类不可以在天上飞..
+鸵鸟鸟类不可以在天上飞..</code></pre>
+<p>此时已成功重写父类的方法，即只要是Ostrich的对象调用的都是重写后的方法。</p>
+<h2 id="3、总结"><a href="#3、总结" class="headerlink" title="3、总结"></a>3、总结</h2><p>重写：需要有继承关系，子类重写父类的方法</p>
+<pre><code>1、方法名必须相同，方法体不同
+2、参数列表必须相同
+3、修饰符：范围可以扩大但是不能缩小
+4、抛出的异常：范围可以被缩小，但是不能扩大</code></pre>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/21/Java%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Java-super详解" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
